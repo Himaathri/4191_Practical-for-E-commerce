@@ -1,0 +1,130 @@
+ Setting environment for using XAMPP for Windows.
+P C V@DESKTOP-CP8J6IT c:\xampp
+# mysql -u fbadmin -p
+Enter password: ***
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 104
+Server version: 10.4.20-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use socialmedia_quiz1
+ERROR 1044 (42000): Access denied for user 'fbadmin'@'localhost' to database 'socialmedia_quiz1'
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| socialmedia_quiz   |
+| test               |
++--------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [(none)]> use socialmedia_quiz;
+Database changed
+MariaDB [socialmedia_quiz]> show tables;
++----------------------------+
+| Tables_in_socialmedia_quiz |
++----------------------------+
+| comment                    |
+| post                       |
+| user                       |
++----------------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [socialmedia_quiz]> desc comment;
++--------------+--------------+------+-----+---------------------+-------+
+| Field        | Type         | Null | Key | Default             | Extra |
++--------------+--------------+------+-----+---------------------+-------+
+| comment_id   | bigint(20)   | NO   | PRI | NULL                |       |
+| comment      | varchar(255) | YES  |     | NULL                |       |
+| commented_on | datetime     | YES  |     | current_timestamp() |       |
+| user_id      | varchar(255) | YES  | MUL | NULL                |       |
+| post_id      | bigint(20)   | YES  | MUL | NULL                |       |
++--------------+--------------+------+-----+---------------------+-------+
+5 rows in set (0.009 sec)
+
+MariaDB [socialmedia_quiz]> insert into comment ( comment_id,comment,user_id,post_id) values (1234,'Thanku',uid1102,1);
+ERROR 1054 (42S22): Unknown column 'uid1102' in 'field list'
+MariaDB [socialmedia_quiz]> insert into comment ( comment_id,comment,user_id,post_id) values (1234,'Thanku','uid1102',1);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`socialmedia_quiz`.`comment`, CONSTRAINT `FK8kcum44fvpupyw6f5baccx25c` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+MariaDB [socialmedia_quiz]> insert into comment ( comment_id,comment,user_id,post_id) values (1234,'Thanku','uid102',1);
+Query OK, 1 row affected (0.007 sec)
+
+MariaDB [socialmedia_quiz]> insert into comment ( comment_id,comment,user_id,post_id) values (2234,'ok','uid101',2);
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [socialmedia_quiz]> select * from comment;
++------------+---------+---------------------+---------+---------+
+| comment_id | comment | commented_on        | user_id | post_id |
++------------+---------+---------------------+---------+---------+
+|       1234 | Thanku  | 2021-09-26 01:43:22 | uid102  |       1 |
+|       2234 | ok      | 2021-09-26 01:44:00 | uid101  |       2 |
++------------+---------+---------------------+---------+---------+
+2 rows in set (0.001 sec)
+
+MariaDB [socialmedia_quiz]> desc user;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| user_id    | varchar(255) | NO   | PRI | NULL    |       |
+| age        | int(11)      | NO   |     | NULL    |       |
+| email_id   | varchar(255) | YES  |     | NULL    |       |
+| first_name | varchar(255) | YES  |     | NULL    |       |
+| last_name  | varchar(255) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.009 sec)
+
+MariaDB [socialmedia_quiz]> select * from user;
++---------+-----+-----------------+------------+-----------+
+| user_id | age | email_id        | first_name | last_name |
++---------+-----+-----------------+------------+-----------+
+| uid101  |  34 | sam@gmail.com   | samuel     | Jacob     |
+| uid102  |  25 | amaya@gmail.com | tara       | Jhon      |
++---------+-----+-----------------+------------+-----------+
+2 rows in set (0.001 sec)
+
+MariaDB [socialmedia_quiz]> desc post;
++------------+--------------+------+-----+---------------------+-------+
+| Field      | Type         | Null | Key | Default             | Extra |
++------------+--------------+------+-----+---------------------+-------+
+| post_id    | bigint(20)   | NO   | PRI | NULL                |       |
+| content    | varchar(255) | YES  |     | NULL                |       |
+| created_on | datetime     | YES  |     | current_timestamp() |       |
+| title      | varchar(255) | YES  |     | NULL                |       |
+| user_id    | varchar(255) | YES  | MUL | NULL                |       |
++------------+--------------+------+-----+---------------------+-------+
+5 rows in set (0.009 sec)
+
+MariaDB [socialmedia_quiz]> select * from post;
++---------+-------------------+---------------------+------------------+---------+
+| post_id | content           | created_on          | title            | user_id |
++---------+-------------------+---------------------+------------------+---------+
+|       0 | Happy birthday    | 2021-09-26 01:17:07 | Birthday wish    | uid101  |
+|       1 | Happy birthday    | 2021-09-26 01:21:19 | Birthday wish    | uid101  |
+|       2 | Happy Anniversary | 2021-09-26 01:21:38 | Anniversary wish | uid102  |
++---------+-------------------+---------------------+------------------+---------+
+3 rows in set (0.001 sec)
+
+MariaDB [socialmedia_quiz]> desc comment;
++--------------+--------------+------+-----+---------------------+-------+
+| Field        | Type         | Null | Key | Default             | Extra |
++--------------+--------------+------+-----+---------------------+-------+
+| comment_id   | bigint(20)   | NO   | PRI | NULL                |       |
+| comment      | varchar(255) | YES  |     | NULL                |       |
+| commented_on | datetime     | YES  |     | current_timestamp() |       |
+| user_id      | varchar(255) | YES  | MUL | NULL                |       |
+| post_id      | bigint(20)   | YES  | MUL | NULL                |       |
++--------------+--------------+------+-----+---------------------+-------+
+5 rows in set (0.007 sec)
+
+MariaDB [socialmedia_quiz]> select * from comment;
++------------+---------+---------------------+---------+---------+
+| comment_id | comment | commented_on        | user_id | post_id |
++------------+---------+---------------------+---------+---------+
+|       1234 | Thanku  | 2021-09-26 01:43:22 | uid102  |       1 |
+|       2234 | ok      | 2021-09-26 01:44:00 | uid101  |       2 |
++------------+---------+---------------------+---------+---------+
+2 rows in set (0.001 sec)
