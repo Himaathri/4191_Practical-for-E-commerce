@@ -1,14 +1,19 @@
 package lk.ac.vau.Model;
 
-import java.sql.Date;
+//import java.sql.Date;
 import java.util.List;
-
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Post {
@@ -16,10 +21,11 @@ public class Post {
 	private Long PostId;
 	private String Title;
 	private String Content;
-	@Column(columnDefinition = "datetime default now()")
+	//@Column(columnDefinition = "datetime default now()")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date CreatedOn;
 	  
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY,optional = false)
 	@JoinColumn(name = "user_id",referencedColumnName = "UserId")
 	private User Owner;
 	
@@ -62,12 +68,14 @@ public class Post {
 	public void setCreatedOn(Date createdOn) {
 		CreatedOn = createdOn;
 	}
+	@JsonIgnore
 	public User getOwner() {
 		return Owner;
 	}
 	public void setOwner(User owner) {
 		Owner = owner;
 	}
+	@JsonIgnore
 	public List<Comment> getComments() {
 		return comments;
 	}

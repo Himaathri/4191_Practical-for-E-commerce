@@ -1,25 +1,31 @@
 package lk.ac.vau.Model;
 
-import java.sql.Date;
-
+//import java.sql.Date;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Comment {
 	@Id
 	private Long CommentId;
 	private String Comment;
-	@Column(columnDefinition = "datetime default now()")
-	private Date CommentedOn;
+	//@Column(columnDefinition = "datetime default now()")
+	@Temporal(TemporalType.TIMESTAMP)
+	private  Date CommentedOn;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Post_Id",referencedColumnName = "PostId")
 	private Post CommentedIn;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "UserId",referencedColumnName = "UserId")
 	private User CommentedBy;
 
@@ -55,7 +61,7 @@ public class Comment {
 	public void setCommentedOn(Date commentedOn) {
 		CommentedOn = commentedOn;
 	}
-
+	@JsonIgnore
 	public Post getCommentedIn() {
 		return CommentedIn;
 	}
@@ -63,7 +69,7 @@ public class Comment {
 	public void setCommentedIn(Post commentedIn) {
 		CommentedIn = commentedIn;
 	}
-
+	@JsonIgnore
 	public User getCommentedBy() {
 		return CommentedBy;
 	}

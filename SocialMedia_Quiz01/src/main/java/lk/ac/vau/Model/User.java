@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User {
@@ -74,7 +75,7 @@ public class User {
 	public void setAge(int age) {
 		Age = age;
 	}
-
+	@JsonIgnore
 	public List<Post> getPosts() {
 		return posts;
 	}
@@ -82,7 +83,7 @@ public class User {
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}
-
+	@JsonIgnore
 	public List<Comment> getComments() {
 		return comments;
 	}
