@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>List of students</title>
+</head>
+<body>
+<table border="1" cellspacing="0" cellpadding="0">
+	<tr>
+		<td>Registration Number</td>
+		<td>Name</td>
+		<td>Full Details</td>
+		<td>Update</td>
+		<td>Delete</td>
+	</tr>
+	<tr th:each="student:${students}">
+		<td th:text="${student.RegNo}"></td>
+		<td th:text="${student.Name}"></td>
+		<td><a th:href="@{/student/{id}(id=${student.RegNo})}">Details</a></td>
+		<td><a th:href="@{/student/update/{id}(id=${student.RegNo})}">Update</a></td>
+		<td><a th:href="@{/student/delete/{id}(id=${student.RegNo})}">Delete</a></td>
+	</tr>
+</table>
+
+<a href="/student/create">create new Student</a>
+</body>
+</html>

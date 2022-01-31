@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>update the student</title>
+</head>
+<body>
+<table>
+<form action="#" method="post" th:action="@{./{id}(id=${student.RegNo})}" th:object="${student}">
+	<tr>
+		<td> Registration number</td>
+		<td><input type="text" th:field="*{RegNo}"></td>
+		<td><span th:if="${#fields.hasErrors('RegNo')}" th:errors="*{RegNo}"></span></td>
+	</tr>
+	<tr>
+		<td> Name</td>
+		<td><input type="text" th:field="*{Name}"></td>
+		<td><span th:if="${#fields.hasErrors('Name')}" th:errors="*{Name}"></span></td>
+	</tr>
+	<tr>
+		<td> Age</td>
+		<td><input type="number" th:field="*{Age}"></td>
+		<td><span th:if="${#fields.hasErrors('Age')}" th:errors="*{Age}"></span></td>
+	</tr>
+	<tr>
+		<td> GPA</td>
+		<td><input type="text" th:field="*{GPA}"></td>
+		<td><span th:if="${#fields.hasErrors('GPA')}" th:errors="*{GPA}"></span></td>
+	</tr>
+	<tr>
+		<td> Email</td>
+		<td><input type="text" th:field="*{Email}"></td>
+		<td><span th:if="${#fields.hasErrors('Email')}" th:errors="*{Email}"></span></td>
+	</tr>
+	<tr>
+		<td> Registered On</td>
+		<td><input type="date" th:field="*{RegisteredOn}"></td>
+		<td><span th:if="${#fields.hasErrors('RegisteredOn')}" th:errors="*{RegisteredOn}"></span></td>
+	</tr>
+	<tr>
+		<td> Gender</td>
+		<td>
+		Male:<input type="radio" th:field="*{Gender}" value="Male" checked>
+		Female:<input type="radio" th:field="*{Gender}" value="Female" checked>
+		Other:<input type="radio" th:field="*{Gender}" value="Other" checked>
+		</td>
+		<td><span th:if="${#fields.hasErrors('Gender')}" th:errors="*{Gender}"></span></td>
+	</tr>
+	<tr>
+		<td>Department</td>
+		<td>
+			<select th:field="*{department}">
+				<option value="" >Select a department</option>
+				<option th:each="dept :${departments}" th:value="${dept.DeptId}" th:text="${dept.Name}"></option>
+			</select>
+		</td>
+		<td><span th:if="${#fields.hasErrors('department')}" th:errors="*{department}"></span></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><input type="submit" name="save" value="Save Student"></td>
+		<td></td>
+	</tr>
+</form>
+</table>
+</body>
+</html>

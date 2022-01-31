@@ -1,0 +1,38 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>do you want to delete the student ?</h3>
+	<table border="1">
+		<tr>
+			<td>Registration number</td>
+			<td th:text="${student.RegNo}"></td>
+		</tr>
+		<tr>
+			<td>Name</td>
+			<td th:text="${student.Name}"></td>
+		</tr>
+		<tr>
+			<td>Email</td>
+			<td th:text="${student.Email}"></td>
+		</tr>
+		<tr>
+			<td>GPA</td>
+			<td th:text="${student.GPA}"></td>
+		</tr>
+		<tr>
+			<form action="#" method="post"
+				th:action="@{./{id}(id=${student.RegNo})}" th:object="${student}">
+			<td><input type="hidden" th:field="*{RegNo}"></td>
+			<td><input type="submit" name="delete"
+				value="yes"></td>
+			</form>
+		</tr>
+	</table>
+
+
+</body>
+</html>

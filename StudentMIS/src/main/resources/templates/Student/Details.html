@@ -1,0 +1,32 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<table border="1">
+	<tr>
+		<td> Registration number</td>
+		<td th:text="${student.RegNo}"></td>
+	</tr>
+	<tr>
+		<td> Name</td>
+		<td th:text="${student.Name}"></td>
+	</tr>
+	<tr>
+		<td> Email</td>
+		<td th:text="${student.Email}"></td>
+	</tr>
+	<tr>
+		<td> GPA</td>
+		<td th:text="${student.GPA}"></td>
+	</tr>
+	<tr>
+		<td> Department</td>
+		<td th:text="${student.department.Name}"></td>
+	</tr>
+</table>
+
+</body>
+</html>
